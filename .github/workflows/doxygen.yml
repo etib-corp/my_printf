@@ -7,6 +7,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v6.0.2
@@ -16,3 +18,35 @@ jobs:
 
       - name: Generate documentation
         run: doxygen Doxyfile
+
+      - name: Upload documentation artifact
+        uses: actions/upload-artifact@v7.0.1
+        with:
+          name: generated-docs
+          path: html
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    steps:
+      - name: Download documentation artifact
+        uses: actions/download-artifact@v8.0.1
+        with:
+          name: generated-docs
+          path: .
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v6.0.0
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v5.0.0
+        with:
+          path: "."
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5.0.0
