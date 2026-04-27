@@ -23,7 +23,7 @@
  * @note The behavior of this function is undefined if the format string is not
  * a valid format
  */
-int my_printf(const char *restrict format, ...);
+int my_printf(const char *format, ...);
 
 /**
  * @brief This function print to the given output stream according to a format
@@ -46,7 +46,7 @@ int my_printf(const char *restrict format, ...);
  * @note The behavior of this function is undefined if the format string is not
  * a valid format
  */
-int my_fprintf(FILE *restrict stream, const char *restrict format, ...);
+int my_fprintf(FILE *stream, const char *format, ...);
 
 /**
  * @brief This function print to a string according to a format string and a
@@ -71,7 +71,7 @@ int my_fprintf(FILE *restrict stream, const char *restrict format, ...);
  * @note The behavior of this function is undefined if the format string is not
  * a valid format
  */
-int my_sprintf(char *restrict str, const char *restrict format, ...);
+int my_sprintf(char *str, const char *format, ...);
 
 /**
  * @brief This function print to a string according to a format string and a
@@ -103,8 +103,7 @@ int my_sprintf(char *restrict str, const char *restrict format, ...);
  * @note The behavior of this function is undefined if the format string is not
  * a valid format
  */
-int my_snprintf(char *restrict str, size_t size, const char *restrict format,
-				...);
+int my_snprintf(char *str, size_t size, const char *format, ...);
 
 /**
  * @brief This function print to a string according to a format string and a
@@ -158,7 +157,7 @@ int my_asprintf(char **ret, const char *format, ...);
  * @note The behavior of this function is undefined if the format string is not
  * a valid format
  */
-int my_dprintf(int fd, const char *restrict format, ...);
+int my_dprintf(int fd, const char *format, ...);
 
 /**
  * @brief This function is the va_list version of my_printf(). It print to the
@@ -181,7 +180,7 @@ int my_dprintf(int fd, const char *restrict format, ...);
  * @note The behavior of this function is undefined if the format string is not
  * a valid format
  */
-int my_vprintf(const char *restrict format, va_list ap);
+int my_vprintf(const char *format, va_list ap);
 
 /**
  * @brief This function is the va_list version of my_fprintf(). It print to the
@@ -208,7 +207,7 @@ int my_vprintf(const char *restrict format, va_list ap);
  * @note The behavior of this function is undefined if the format string is not
  * a valid format
  */
-int my_vfprintf(FILE *restrict stream, const char *restrict format, va_list ap);
+int my_vfprintf(FILE *stream, const char *format, va_list ap);
 
 /**
  * @brief This function is the va_list version of my_sprintf(). It print to a
@@ -234,7 +233,7 @@ int my_vfprintf(FILE *restrict stream, const char *restrict format, va_list ap);
  * @note The behavior of this function is undefined if the format string is not
  * a valid format
  */
-int my_vsprintf(char *restrict str, const char *restrict format, va_list ap);
+int my_vsprintf(char *str, const char *format, va_list ap);
 
 /**
  * @brief This function is the va_list version of my_snprintf(). It print to a
@@ -266,8 +265,7 @@ int my_vsprintf(char *restrict str, const char *restrict format, va_list ap);
  * @note The behavior of this function is undefined if the format string is not
  * a valid format
  */
-int my_vsnprintf(char *restrict str, size_t size, const char *restrict format,
-				 va_list ap);
+int my_vsnprintf(char *str, size_t size, const char *format, va_list ap);
 
 /**
  * @brief This function is the va_list version of my_asprintf(). It print to a
@@ -322,4 +320,4 @@ int my_vasprintf(char **ret, const char *format, va_list ap);
  * @note The behavior of this function is undefined if the format string is not
  * a valid format
  */
-int my_vdprintf(int fd, const char *restrict format, va_list ap);
+int my_vdprintf(int fd, const char *format, va_list ap);

@@ -2,7 +2,7 @@
 
 #include <gtest/gtest.h>
 
-class TestMyPrintf: public ::testing::Test
+class TestFormat: public ::testing::Test
 {
 	protected:
 	void SetUp() override
