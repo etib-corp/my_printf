@@ -71,6 +71,23 @@ typedef enum format_length_modifier_e {
 } format_length_modifier_e;
 
 /**
+ * @brief Mapping of format_length_modifier_e values to their string
+ * representations. Indexed by format_length_modifier_e values for easy lookup
+ * during parsing.
+ */
+const char *length_modifier_to_string[] = {
+	[FORMAT_LENGTH_NONE] = "",		 [FORMAT_LENGTH_HH] = "hh",
+	[FORMAT_LENGTH_H] = "h",		 [FORMAT_LENGTH_L] = "l",
+	[FORMAT_LENGTH_LL] = "ll",		 [FORMAT_LENGTH_J] = "j",
+	[FORMAT_LENGTH_T] = "t",		 [FORMAT_LENGTH_Z] = "z",
+	[FORMAT_LENGTH_L_CAPITAL] = "L", [FORMAT_LENGTH_Q] = "q",
+	[FORMAT_LENGTH_V] = "v",		 [FORMAT_LENGTH_VH] = "vh",
+	[FORMAT_LENGTH_HV] = "hv",		 [FORMAT_LENGTH_VL] = "vl",
+	[FORMAT_LENGTH_LV] = "lv",		 [FORMAT_LENGTH_VLL] = "vll",
+	[FORMAT_LENGTH_LLV] = "llv",
+};
+
+/**
  * @brief Conversion character parsed at the end of a directive.
  */
 typedef enum conversion_type_e {
@@ -100,6 +117,26 @@ typedef enum conversion_type_e {
 	CONVERSION_TYPE_P,			///< %p
 	CONVERSION_TYPE_N,			///< %n
 } conversion_type_e;
+
+/**
+ * @brief Mapping of conversion_type_e values to their conversion characters.
+ * Indexed by conversion_type_e values for easy lookup during parsing.
+ */
+const char conversion_type_to_char[] = {
+	[CONVERSION_TYPE_NONE] = '\0',	 [CONVERSION_TYPE_PERCENT] = '%',
+	[CONVERSION_TYPE_D] = 'd',		 [CONVERSION_TYPE_I] = 'i',
+	[CONVERSION_TYPE_O] = 'o',		 [CONVERSION_TYPE_U] = 'u',
+	[CONVERSION_TYPE_X] = 'x',		 [CONVERSION_TYPE_X_UPPER] = 'X',
+	[CONVERSION_TYPE_D_UPPER] = 'D', [CONVERSION_TYPE_O_UPPER] = 'O',
+	[CONVERSION_TYPE_U_UPPER] = 'U', [CONVERSION_TYPE_E] = 'e',
+	[CONVERSION_TYPE_E_UPPER] = 'E', [CONVERSION_TYPE_F] = 'f',
+	[CONVERSION_TYPE_F_UPPER] = 'F', [CONVERSION_TYPE_G] = 'g',
+	[CONVERSION_TYPE_G_UPPER] = 'G', [CONVERSION_TYPE_A] = 'a',
+	[CONVERSION_TYPE_A_UPPER] = 'A', [CONVERSION_TYPE_C] = 'c',
+	[CONVERSION_TYPE_C_UPPER] = 'C', [CONVERSION_TYPE_S] = 's',
+	[CONVERSION_TYPE_S_UPPER] = 'S', [CONVERSION_TYPE_P] = 'p',
+	[CONVERSION_TYPE_N] = 'n',
+};
 
 /**
  * @brief Parsed metadata for one conversion directive starting with '%'.
