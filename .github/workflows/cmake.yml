@@ -3,8 +3,14 @@ name: CMake
 on:
   push:
     branches: [ "main" ]
+    paths: &monitored-paths
+      - "CMakeLists.txt"
+      - "sources/**"
+      - "headers/**"
+      - "tests/**"
   pull_request:
     branches: [ "main" ]
+    paths: *monitored-paths
 
 jobs:
   build:
@@ -17,7 +23,7 @@ jobs:
             build_type: Release
           - os: ubuntu-latest
             build_type: Release
-          - os: ubuntu-latest
+          - os: macos-latest
             build_type: Release
     steps:
       - name: Checkout the repository

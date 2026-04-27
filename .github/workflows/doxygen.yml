@@ -3,6 +3,11 @@ name: Doxygen
 on:
   push:
     branches: [ "main" ]
+    paths:
+      - "Doxyfile"
+      - "headers/**"
+      - "docs/**"
+      - "README.md"
 
 jobs:
   build:
