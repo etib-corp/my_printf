@@ -4,6 +4,7 @@ on:
   push:
     branches: [ "main" ]
     paths: &monitored-paths
+      - "github/workflows/cmake.yml"
       - "CMakeLists.txt"
       - "sources/**"
       - "headers/**"
