@@ -2,6 +2,7 @@
 
 #include <stddef.h>
 #include <stdint.h>
+#include <stdarg.h>
 
 /**
  * @brief A non-owning slice of text inside the original format string.
@@ -119,6 +120,19 @@ typedef struct conversion_specifier_s {
 	format_length_modifier_e length;
 	/** Conversion kind. */
 	conversion_type_e type;
+	/** Value for the conversion. */
+	union {
+		/** Integer value for numeric conversions. */
+		int int_value;
+		/** Floating-point value for floating-point conversions. */
+		double double_value;
+		/** Pointer value for %p conversion. */
+		const void *pointer_value;
+		/** Character value for %c conversion. */
+		char char_value;
+		/** String value for %s conversion. */
+		char *string_value;
+	} value;
 } conversion_specifier_t;
 
 typedef enum format_part_type_e {
@@ -139,3 +153,24 @@ typedef struct format_part_s {
 		conversion_specifier_t conversion;
 	};
 } format_part_t;
+
+/**
+ * @brief Parses a format string into an array of format_part_t structures.
+ *
+ * @param format The format string to parse. It should be a valid format string
+ * containing ordinary characters and conversion specifications.
+ *
+ * @param ap A va_list of arguments that use to fill conversion_specifier value.
+ * The number and types of these arguments should match the conversion
+ * specifications in the format string, especially for '*' width/precision
+ * specifiers.
+ *
+ * @return format_part_t* A pointer to a dynamically allocated array of
+ * format_part_t structures representing the parsed format string. The caller is
+ * responsible for freeing this memory when it is no longer needed.
+ *
+ * @note The behavior of this function is undefined if the format string is not
+ * a valid format or if the va_list does not contain the expected arguments for
+ * '*' specifiers.
+ */
+format_part_t *parse_format_string(const char *format, va_list ap);

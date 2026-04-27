@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.10)
 project(my_printf
     VERSION 0.1.0
     DESCRIPTION "Lightweight C library providing printf-style string formatting with full format-specifier support."
-    HOMEPAGE_URL "https://etib-corp.github.io/printf"
+    HOMEPAGE_URL "https://etib-corp.github.io/my_printf"
     LANGUAGES C CXX
 )
 

@@ -6,7 +6,7 @@ set(TEST_HEADERS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/headers")
 set(TEST_SOURCES_DIR "${CMAKE_CURRENT_SOURCE_DIR}/sources")
 
 # Find all source files in the test sources directory
-file(GLOB_RECURSE TEST_SOURCES "${TEST_SOURCES_DIR}/*.c")
+file(GLOB_RECURSE TEST_SOURCES "${TEST_SOURCES_DIR}/*.cpp")
 
 # Fetch GoogleTest
 include(FetchContent)
@@ -29,7 +29,7 @@ target_include_directories(test_${PROJECT_NAME} PRIVATE
 
 # Link libraries
 target_link_libraries(test_${PROJECT_NAME} PRIVATE
-    printf
+    my_printf
     gtest_main
 )
 
