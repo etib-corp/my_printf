@@ -28,9 +28,9 @@ target_include_directories(test_${PROJECT_NAME} PRIVATE
 )
 
 # Link libraries
-target_link_libraries(test_${PROJECT_NAME} PRIVATE
-    my_printf
+target_link_libraries(test_${PROJECT_NAME} PUBLIC
     gtest_main
+    ${PROJECT_NAME}
 )
 
 # Discover and register tests

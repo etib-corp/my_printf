@@ -4,6 +4,10 @@
 #include <stdint.h>
 #include <stdarg.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  * @brief A non-owning slice of text inside the original format string.
  */
@@ -68,36 +72,25 @@ typedef enum format_length_modifier_e {
 	FORMAT_LENGTH_LV,			///< lv (extension)
 	FORMAT_LENGTH_VLL,			///< vll (extension)
 	FORMAT_LENGTH_LLV,			///< llv (extension)
-} format_length_modifier_e;
+} format_length_modifier_t;
+
+/**
+ * @brief Count of valid length modifiers for iteration during parsing.
+ */
+#define FORMAT_LENGTH_MODIFIER_COUNT 17
 
 /**
  * @brief List of all valid length modifiers for easy iteration during parsing.
  */
-const format_length_modifier_e format_length_modifier_list[] = {
-	FORMAT_LENGTH_NONE, FORMAT_LENGTH_HH,  FORMAT_LENGTH_H,
-	FORMAT_LENGTH_L,	FORMAT_LENGTH_LL,  FORMAT_LENGTH_J,
-	FORMAT_LENGTH_T,	FORMAT_LENGTH_Z,   FORMAT_LENGTH_L_CAPITAL,
-	FORMAT_LENGTH_Q,	FORMAT_LENGTH_V,   FORMAT_LENGTH_VH,
-	FORMAT_LENGTH_HV,	FORMAT_LENGTH_VL,  FORMAT_LENGTH_LV,
-	FORMAT_LENGTH_VLL,	FORMAT_LENGTH_LLV,
-};
+extern const format_length_modifier_t
+	format_length_modifier_list[FORMAT_LENGTH_MODIFIER_COUNT];
 
 /**
- * @brief Mapping of format_length_modifier_e values to their string
- * representations. Indexed by format_length_modifier_e values for easy lookup
+ * @brief Mapping of format_length_modifier_t values to their string
+ * representations. Indexed by format_length_modifier_t values for easy lookup
  * during parsing.
  */
-const char *length_modifier_to_string[] = {
-	[FORMAT_LENGTH_NONE] = "",		 [FORMAT_LENGTH_HH] = "hh",
-	[FORMAT_LENGTH_H] = "h",		 [FORMAT_LENGTH_L] = "l",
-	[FORMAT_LENGTH_LL] = "ll",		 [FORMAT_LENGTH_J] = "j",
-	[FORMAT_LENGTH_T] = "t",		 [FORMAT_LENGTH_Z] = "z",
-	[FORMAT_LENGTH_L_CAPITAL] = "L", [FORMAT_LENGTH_Q] = "q",
-	[FORMAT_LENGTH_V] = "v",		 [FORMAT_LENGTH_VH] = "vh",
-	[FORMAT_LENGTH_HV] = "hv",		 [FORMAT_LENGTH_VL] = "vl",
-	[FORMAT_LENGTH_LV] = "lv",		 [FORMAT_LENGTH_VLL] = "vll",
-	[FORMAT_LENGTH_LLV] = "llv",
-};
+extern const char *length_modifier_to_string[FORMAT_LENGTH_MODIFIER_COUNT];
 
 /**
  * @brief Conversion character parsed at the end of a directive.
@@ -128,41 +121,23 @@ typedef enum conversion_type_e {
 	CONVERSION_TYPE_S_UPPER,	///< %S
 	CONVERSION_TYPE_P,			///< %p
 	CONVERSION_TYPE_N,			///< %n
-} conversion_type_e;
+} conversion_type_t;
+
+/**
+ * @brief Count of valid conversion types for iteration during parsing.
+ */
+#define CONVERSION_TYPE_COUNT 27
 
 /**
  * @brief List of all valid conversion types for easy iteration during parsing.
  */
-const conversion_type_e conversion_type_list[] = {
-	CONVERSION_TYPE_PERCENT, CONVERSION_TYPE_D,		  CONVERSION_TYPE_I,
-	CONVERSION_TYPE_O,		 CONVERSION_TYPE_U,		  CONVERSION_TYPE_X,
-	CONVERSION_TYPE_X_UPPER, CONVERSION_TYPE_D_UPPER, CONVERSION_TYPE_O_UPPER,
-	CONVERSION_TYPE_U_UPPER, CONVERSION_TYPE_E,		  CONVERSION_TYPE_E_UPPER,
-	CONVERSION_TYPE_F,		 CONVERSION_TYPE_F_UPPER, CONVERSION_TYPE_G,
-	CONVERSION_TYPE_G_UPPER, CONVERSION_TYPE_A,		  CONVERSION_TYPE_A_UPPER,
-	CONVERSION_TYPE_C,		 CONVERSION_TYPE_C_UPPER, CONVERSION_TYPE_S,
-	CONVERSION_TYPE_S_UPPER, CONVERSION_TYPE_P,		  CONVERSION_TYPE_N,
-};
+extern const conversion_type_t conversion_type_list[CONVERSION_TYPE_COUNT];
 
 /**
- * @brief Mapping of conversion_type_e values to their conversion characters.
- * Indexed by conversion_type_e values for easy lookup during parsing.
+ * @brief Mapping of conversion_type_t values to their conversion characters.
+ * Indexed by conversion_type_t values for easy lookup during parsing.
  */
-const char *conversion_type_to_char[] = {
-	[CONVERSION_TYPE_NONE] = "\0",	 [CONVERSION_TYPE_PERCENT] = "%",
-	[CONVERSION_TYPE_D] = "d",		 [CONVERSION_TYPE_I] = "i",
-	[CONVERSION_TYPE_O] = "o",		 [CONVERSION_TYPE_U] = "u",
-	[CONVERSION_TYPE_X] = "x",		 [CONVERSION_TYPE_X_UPPER] = "X",
-	[CONVERSION_TYPE_D_UPPER] = "D", [CONVERSION_TYPE_O_UPPER] = "O",
-	[CONVERSION_TYPE_U_UPPER] = "U", [CONVERSION_TYPE_E] = "e",
-	[CONVERSION_TYPE_E_UPPER] = "E", [CONVERSION_TYPE_F] = "f",
-	[CONVERSION_TYPE_F_UPPER] = "F", [CONVERSION_TYPE_G] = "g",
-	[CONVERSION_TYPE_G_UPPER] = "G", [CONVERSION_TYPE_A] = "a",
-	[CONVERSION_TYPE_A_UPPER] = "A", [CONVERSION_TYPE_C] = "c",
-	[CONVERSION_TYPE_C_UPPER] = "C", [CONVERSION_TYPE_S] = "s",
-	[CONVERSION_TYPE_S_UPPER] = "S", [CONVERSION_TYPE_P] = "p",
-	[CONVERSION_TYPE_N] = "n",
-};
+extern const char *conversion_type_to_char[CONVERSION_TYPE_COUNT];
 
 /**
  * @brief Parsed metadata for one conversion directive starting with '%'.
@@ -180,9 +155,9 @@ typedef struct conversion_specifier_s {
 	/** Optional precision. */
 	format_arg_value_t precision;
 	/** Optional length modifier. */
-	format_length_modifier_e length;
+	format_length_modifier_t length;
 	/** Conversion kind. */
-	conversion_type_e type;
+	conversion_type_t type;
 	/** Value for the conversion. */
 	union {
 		/** Integer value for numeric conversions. */
@@ -228,12 +203,24 @@ typedef struct format_part_s {
  * specifications in the format string, especially for '*' width/precision
  * specifiers.
  *
- * @return format_part_t* A pointer to a dynamically allocated array of
- * format_part_t structures representing the parsed format string. The caller is
+ * @return format_part_t** A pointer to a dynamically allocated array of
+ * format_part_t pointers representing the parsed format string. The caller is
  * responsible for freeing this memory when it is no longer needed.
  *
  * @note The behavior of this function is undefined if the format string is not
  * a valid format or if the va_list does not contain the expected arguments for
  * '*' specifiers.
  */
-format_part_t *parse_format_string(const char *format, va_list ap);
+format_part_t **initialize_format_parts(const char *format, va_list ap);
+
+/**
+ * @brief Frees the memory allocated for an array of format_part_t structures.
+ *
+ * @param parts A pointer to the array of format_part_t pointers to free. This
+ * should be a pointer returned by initialize_format_parts() or NULL.
+ */
+void destroy_format_parts(format_part_t **parts);
+
+#ifdef __cplusplus
+}
+#endif

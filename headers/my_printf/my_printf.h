@@ -1,5 +1,9 @@
 #pragma once
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stdio.h>
 #include <stdarg.h>
 
@@ -321,3 +325,7 @@ int my_vasprintf(char **ret, const char *format, va_list ap);
  * a valid format
  */
 int my_vdprintf(int fd, const char *format, va_list ap);
+
+#ifdef __cplusplus
+}
+#endif
