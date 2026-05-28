@@ -6,7 +6,7 @@
 
 static format_part_t **parse_format(const char *format, ...)
 {
-	va_list ap			  = { 0 };
+	va_list ap;
 	format_part_t **parts = NULL;
 
 	va_start(ap, format);
