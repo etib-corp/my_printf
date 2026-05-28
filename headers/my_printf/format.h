@@ -14,14 +14,13 @@ extern "C" {
 typedef struct format_text_span_s {
 	/** Pointer to the first character in the original format string. */
 	const char *data;
-	/** Number of characters in the span (not including a null terminator). */
-	size_t length;
 } format_text_span_t;
 
 /**
  * @brief Flag bits parsed after '%'.
  */
 typedef enum format_flag_e {
+	FORMAT_FLAG_NONE		= 0,
 	FORMAT_FLAG_ALTERNATE	= 1u << 0,	  ///< '#'
 	FORMAT_FLAG_ZERO_PAD	= 1u << 1,	  ///< '0'
 	FORMAT_FLAG_LEFT_ADJUST = 1u << 2,	  ///< '-'
@@ -29,6 +28,21 @@ typedef enum format_flag_e {
 	FORMAT_FLAG_FORCE_SIGN	= 1u << 4,	  ///< '+'
 	FORMAT_FLAG_GROUPING	= 1u << 5,	  ///< '\''
 } format_flag_e;
+
+/**
+ * @brief Count of valid flags for iteration during parsing.
+ */
+#define FORMAT_FLAG_COUNT (FORMAT_FLAG_GROUPING + 1)
+
+/**
+ * @brief List of all valid flags for easy iteration during parsing.
+ */
+extern const format_flag_e flag_list[FORMAT_FLAG_COUNT];
+
+/**
+ * @brief Mapping of format_flag_e values to their string representations.
+ */
+extern const char *flag_to_string[FORMAT_FLAG_COUNT];
 
 /**
  * @brief How width/precision values are provided.

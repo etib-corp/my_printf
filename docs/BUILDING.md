@@ -1,4 +1,4 @@
-# Building my_printf
+# Build my_printf
 
 ## Prerequisites
 
@@ -6,7 +6,7 @@
 - A C compiler (e.g., GCC, Clang)
 - Doxygen (optional, for generating documentation)
 
-## Building the Library
+## Build the Library
 
 1. Clone the repository:
 
