@@ -16,3 +16,4 @@
 
 - [Building](docs/BUILDING.md)
 - [Usage](docs/USAGE.md)
+- [Architecture](docs/ARCHITECTURE.md)
