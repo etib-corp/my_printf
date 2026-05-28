@@ -2,6 +2,12 @@
 #include <unistd.h>
 #include <string.h>
 
+#ifdef _WIN32
+#include <fcntl.h>
+#include <io.h>
+#define pipe(fds) _pipe((fds), 4096, _O_BINARY)
+#endif
+
 #include "test_my_printf.hpp"
 
 TEST_F(TestMyPrintf, Blank)
